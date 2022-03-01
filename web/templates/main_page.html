@@ -1,0 +1,95 @@
+{% extends "template.html"%}
+{% load static %}
+
+{% block content %}
+<style>
+    .button1 {
+    background-color: #00adb5;
+    border: 1px solid #00adb5;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 2px;
+    width: 100px;
+    height: 27px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 0px;
+    }
+    .button1:hover {
+    background-color: #eeeeee;
+    color:black;
+    }
+    .button2 {
+    background-color: #00adb5;
+    border: 1px solid #00adb5;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 2px;
+    width: 100px;
+    height: 28px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-right: 0px;
+    margin-top: 23px;
+    }
+    .button2:hover {
+    background-color: #eeeeee;
+    color:black;
+    }
+</style>
+
+
+<table style="width:650px; margin-bottom:50px;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <tr>
+            <td>
+                <label>نام دانشجو: </label>
+                {{ form.name }}
+            </td>
+            <td>
+                <label>شماره دانشجویی: </label>
+                {{ form.student_number }}
+            </td>
+            <td>
+                <input type="submit" class="button2" value="ذخیره" name="save">
+            </td>
+        </tr>
+    </form>
+</table>
+
+
+<form method="POST">
+    {% csrf_token %}
+
+    <table style="width:500px; border-spacing:10px ; border-collapse:unset ;">
+        <tr style="border-bottom: 2px solid black;">
+            <th>نام دانشجو</th>
+            <th>شماره دانشجویی</th>
+        </tr>
+
+        {% for data in datalist %}
+        <tr>
+            <td>{{ data.name }}</td>
+            <td>{{ data.student_number }}</td>
+            <td>
+            <input type="submit" class="button1" value="ویرایش" name="{{ data.student_number }}edit">
+            <input type="submit" class="button1" value="حذف" name="{{ data.student_number }}delete">
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+</form>
+
+
+
+{% endblock %}
